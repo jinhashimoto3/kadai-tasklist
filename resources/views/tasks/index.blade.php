@@ -22,6 +22,7 @@
             </tbody>
         </table>
     @endif
+    {!! link_to_route('tasks.create', '新規作成', [], ['class' => 'btn btn-primary']) !!}
 
 
 
