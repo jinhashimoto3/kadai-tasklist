@@ -19,7 +19,15 @@
                 <div class="collapse navbar-collapse" id="nav-bar">
                     <ul class="navbar-nav mr-auto"></ul>
                     <ul class="navbar-nav">
+                    @if (Auth::check())
                         <li class="nav-item">{!! link_to_route('tasks.create', '新規作成', [], ['class' => 'nav-link']) !!}</li>
+                        <li class="dropdown-item">{!! link_to_route('logout.get', 'Logout') !!}</li>
+                    @else
+                        {{-- ユーザ登録ページへのリンク --}}
+                        <li class="nav-item">{!! link_to_route('signup.get', 'Signup', [], ['class' => 'nav-link']) !!}</li>
+                        {{-- ログインページへのリンク --}}
+                        <li class="nav-item">{!! link_to_route('login', 'Login', [], ['class' => 'nav-link']) !!}</li>
+                    @endif
                     </ul>
                 </div>
             </nav>
@@ -36,4 +44,5 @@
         <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js"></script>
         <script defer src="https://use.fontawesome.com/releases/v5.7.2/js/all.js"></script>
     </body>
+
 </html>
