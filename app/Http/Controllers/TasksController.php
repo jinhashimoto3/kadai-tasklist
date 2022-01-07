@@ -14,15 +14,20 @@ class TasksController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function index()
-    {
-        $tasks = Task::all();
-        
+    {   
+        $tasks = [];
+        if (\Auth::check()) {
+             $user = \Auth::user();
+             
+             $tasks = $user->tasks()->orderBy('created_at', 'desc')->paginate(10);
+        }
         return view('tasks.index', [
             'tasks' => $tasks,
         ]);
-         return redirect('/');
+            
+        }
     
-    }
+    
 
     /**
      * Show the form for creating a new resource.
@@ -88,10 +93,14 @@ class TasksController extends Controller
     public function edit($id)
     {
          $task = Task::findOrFail($id);
-         
+         if (\Auth::id() === $task->user_id){
           return view('tasks.edit', [
             'task' => $task,
         ]);
+         }else{
+              return redirect('/');
+         }
+         
     }
 
     /**
